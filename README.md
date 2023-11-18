@@ -1,1 +1,0 @@
-# eltexdstry3
