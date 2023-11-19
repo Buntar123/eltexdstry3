@@ -5,13 +5,13 @@ int main(void){
 	int m=1;
 	for(int i=0;i<N;i++){
 		for(int j=0;j<N;j++){
-		A[j][i]=m;
+		A[i][j]=m;
 		m++;
 	        }
 	}
 	for(int i=0;i<N;i++){
 		for(int j=0;j<N;j++){
-			printf("%d",A[j][i]);
+			printf("%d",A[i][j]);
 			printf(" ");
 	        }
 	printf("\n");
