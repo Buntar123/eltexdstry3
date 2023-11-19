@@ -7,13 +7,13 @@ int main(void){
 		for(int j=0;j<N;j++){
 		A[j][i]=m;
 		m++;
-	    }
+	        }
 	}
 	for(int i=0;i<N;i++){
 		for(int j=0;j<N;j++){
 			printf("%d",A[j][i]);
 			printf(" ");
-	    }
+	        }
 	printf("\n");
 	}
 	return 0; 
