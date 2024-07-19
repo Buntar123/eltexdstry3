@@ -34,23 +34,45 @@ void socks_init(struct socks_data* data){
                 exit(1);
         }
         basic_client.sin_family=AF_INET;
-        basic_client.sin_port=htons(10000);
-	//basic_client.sin_port=htons(0);
+	int b1_count=10000;
+        basic_client.sin_port=htons(b1_count);
+	//basic_client.sin_port=0;
         inet_pton(AF_INET,"127.0.0.1",&basic_client.sin_addr);
         socklen_t bc_socklen=sizeof(basic_client);
-        if(bind(basic_fd,(struct sockaddr *)&basic_client,bc_socklen)==-1){
+	while(1){
+		if(bind(basic_fd,(struct sockaddr *)&basic_client,bc_socklen)==-1){
+                	perror("bind");
+                	b1_count++;
+			basic_client.sin_port=htons(b1_count);
+        	}
+		else{
+			break;
+		}
+	}
+        /*if(bind(basic_fd,(struct sockaddr *)&basic_client,bc_socklen)==-1){
                 perror("bind");
                 exit(1);
-        }
+        }*/
         ACK_client.sin_family=AF_INET;
-        ACK_client.sin_port=htons(9000);
-	//ACK_client.sin_port=htons(0);
+	int b2_count=9000;
+        ACK_client.sin_port=htons(b2_count);
+	//ACK_client.sin_port=0;
         inet_pton(AF_INET,"127.0.0.1",&ACK_client.sin_addr);
         socklen_t Ac_socklen=sizeof(ACK_client);
-        if(bind(ACK_fd,(struct sockaddr *)&ACK_client,Ac_socklen)==-1){
+	while(1){
+		if(bind(ACK_fd,(struct sockaddr *)&ACK_client,Ac_socklen)==-1){
+                	perror("bind");
+                	b2_count++;
+			ACK_client.sin_port=htons(b2_count);
+        	}
+		else{
+			break;
+		}
+	}
+        /*if(bind(ACK_fd,(struct sockaddr *)&ACK_client,Ac_socklen)==-1){
                 perror("bind");
                 exit(1);
-        }
+        }*/
         struct timeval tv;
         tv.tv_sec=3;
         tv.tv_usec=0;
@@ -64,14 +86,25 @@ void socks_init(struct socks_data* data){
                 exit(1);
         }
         USR_client.sin_family=AF_INET;
-        USR_client.sin_port=htons(11000);
-	//USR_client.sin_port=htons(0);
+	int b3_count=11000;
+        USR_client.sin_port=htons(b3_count);
+	//USR_client.sin_port=0;
         inet_pton(AF_INET,"127.0.0.1",&USR_client.sin_addr);
         socklen_t USR_socklen=sizeof(USR_client);
-	if(bind(USR_fd,(struct sockaddr *)&USR_client,USR_socklen)==-1){
+	while(1){
+		if(bind(USR_fd,(struct sockaddr *)&USR_client,USR_socklen)==-1){
+                	perror("bind");
+                	b3_count++;
+			USR_client.sin_port=htons(b3_count);
+        	}
+		else{
+			break;
+		}
+	}
+	/*if(bind(USR_fd,(struct sockaddr *)&USR_client,USR_socklen)==-1){
                 perror("bind");
                 exit(1);
-        }
+        }*/
 	memcpy(&data->balancer,&srv,16);
 	memcpy(&data->basic_client,&basic_client,16);
 	memcpy(&data->ACK_client,&ACK_client,16);
